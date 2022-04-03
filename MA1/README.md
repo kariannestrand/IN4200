@@ -1,9 +1,6 @@
 # README for IN4200 - Mandatory Assignment 1
 
-## This program uses the C programming language to read a file containing a
-## web graph and store the corresponding hyperlink matrix in CRS format.
-## The scores of each webpage are then calculated using the PageRank algorithm,
-## which is parallelized using OpenMP.
+## This program uses the C programming language to read a file containing a web graph and store the corresponding hyperlink matrix in CRS format. The scores of each webpage are then calculated using the PageRank algorithm, which is parallelized using OpenMP.
 
 The program contains six files:
   main.c -
