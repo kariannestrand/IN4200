@@ -1,4 +1,4 @@
-# README for IN4200 - mandatory assignment 1
+# README for IN4200 - Mandatory Assignment 1
 
 This program uses the C programming language to read a file containing a
 web graph and store the corresponding hyperlink matrix in CRS format.
