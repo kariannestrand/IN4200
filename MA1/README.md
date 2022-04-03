@@ -7,7 +7,7 @@ which is parallelized using OpenMP.
 
 The program contains six files:
 
-  main.c - 
+    main.c - 
 
 
 To compile the code, write the following in the command line:
