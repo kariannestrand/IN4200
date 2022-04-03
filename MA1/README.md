@@ -5,7 +5,8 @@ web graph and store the corresponding hyperlink matrix in CRS format.
 The scores of each webpage are then calculated using the PageRank algorithm,
 which is parallelized using OpenMP.
 
-The program is structured into three
+The program contains six files:
+  main.c - 
 
 
 To compile the code, write the following in the command line:
