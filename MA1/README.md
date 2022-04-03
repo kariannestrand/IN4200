@@ -14,6 +14,6 @@ To run the code, write:
 
       ./main.exe filename d epsilon n
 
-where 'filename' is the name of the file with the web graph, 'd' is the damping
-constant, 'epsilon' is the convergence threshold value and 'n' is the number of
+where `filename` is the name of the file with the web graph, `d` is the damping
+constant, `epsilon` is the convergence threshold value and `n` is the number of
 top webpages being printed.
