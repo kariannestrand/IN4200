@@ -6,15 +6,15 @@ The program is structured into six files:
   - main.c
     - Main program that accepts the command line arguments and calls the three functions `read_graph_from_file`, `PageRank_iterations` and `top_n_webpages`.
   - main.h
-    - Header file
+    - Header file containing all file inclusion directives and method declarations.
   - read_graph_from_file.c
-    - Contains a method that reads a file containing a web graph and sort the corresponding hyperlink matrix in CRS format
+    - File containing the method, `read_graph_from_file`.
   - PageRank_iterations.c
-    - Contains a method that performs the PageRank algorithm
+    - File containing the method, `PageRank_iterations`.
   - top_n_webpages.c
-    - Contains a method that prints out the PageRank scores of the top `n` webpages and their corresponding
+    - File containing the method, `top_n_webpages`.
   - methods.c
-    - Contains supplementary methods
+    - File containing supplementary methods.
 
 
 To compile the code, write the following in the command line:
