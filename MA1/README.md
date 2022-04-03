@@ -6,6 +6,7 @@ The scores of each webpage are then calculated using the PageRank algorithm,
 which is parallelized using OpenMP.
 
 The program contains six files:
+
   main.c - 
 
 
