@@ -3,17 +3,17 @@
 ## This program uses the C programming language to read a file containing a web graph and store the corresponding hyperlink matrix in CRS format. The scores of each webpage are then calculated using the PageRank algorithm, which is parallelized using OpenMP.
 
 The program is structured into six files:
-  - main.c
+  - `main.c`
     - Main program that accepts the command line arguments and calls the three functions `read_graph_from_file()`, `PageRank_iterations()` and `top_n_webpages()`.
-  - main.h
+  - `main.h`
     - Header file containing all file inclusion directives and method declarations.
-  - read_graph_from_file.c
+  - `read_graph_from_file.c`
     - File containing the method, `read_graph_from_file()`.
-  - PageRank_iterations.c
+  - `PageRank_iterations.c`
     - File containing the method, `PageRank_iterations()`.
-  - top_n_webpages.c
+  - `top_n_webpages.c`
     - File containing the method, `top_n_webpages()`.
-  - methods.c
+  - `methods.c`
     - File containing supplementary methods.
 
 
