@@ -15,6 +15,8 @@ The program is structured into six files:
     - File containing the method `top_n_webpages()`.
   - `methods.c`
     - File containing supplementary methods.
+  - `makefile`
+    - File to compile and build the program
 
 
 To compile the code, write the following in the command line:
