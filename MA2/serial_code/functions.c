@@ -1,7 +1,6 @@
 #include "functions.h"
 
 void allocate_image(image *u, int m, int n){
-
     //int i, j;
 
     /*

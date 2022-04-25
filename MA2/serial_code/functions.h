@@ -1,5 +1,5 @@
-// #ifndef FUNCTIONS_
-// #define FUNCTIONS_
+#ifndef FUNCTIONS_
+#define FUNCTIONS_
 
 /* needed header files .... */
 #include <stdio.h>
@@ -20,7 +20,6 @@
 #else
 #include <malloc.h>
 #endif
-
 
 /* data structure to store the m x n pixel values */
 typedef struct{
@@ -47,4 +46,4 @@ void export_JPEG_file(const char* filename, const unsigned char* image_chars,
                       int image_height, int image_width,
                       int num_components, int quality);
 
-// #endif
+#endif
