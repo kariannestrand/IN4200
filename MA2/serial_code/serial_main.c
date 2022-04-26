@@ -22,16 +22,11 @@ int main(int argc, char *argv[]){
 
 
     import_JPEG_file(input_jpeg_filename, &image_chars, &m, &n, &c);
-    printf("Succeeded! vertical pixels: %d, horizontal pixels: %d, num components: %d \n",
-           m, n, c);
-    printf("data struct! image_data: %p, m: %d, n: %d, c: %d \n",
-           u.image_data, m, n, c);
+    printf("Succeeded! m: %d, n: %d, c: %d \n", m, n, c);
 
     allocate_image(&u, m, n);
-    //allocate_image(&u_bar, m, n);
+    allocate_image(&u_bar, m, n);
 
-
-    /*
     convert_jpeg_to_image(image_chars, &u);
     iso_diffusion_denoising(&u, &u_bar, kappa, iters);
 
@@ -40,25 +35,7 @@ int main(int argc, char *argv[]){
 
     deallocate_image(&u);
     deallocate_image(&u_bar);
-    */
 
-
-
-    // example code
-    /*
-    import_JPEG_file("toys.jpg", &image_chars, &height, &width, &comp);
-    printf("Succeeded! vertical pixels: %d, horizontal pixels: %d, num components: %d\n",
-       height, width, comp);
-
-    // creating a horizontally flipped image
-    new_chars = (unsigned char*)malloc(height*width*comp*sizeof(unsigned char));
-    for (i=0; i<height; i++)
-      for (j=0; j<width; j++)
-        for (k=0; k<comp; k++)
-      new_chars[i*(width*comp)+j*comp+k]=image_chars[i*(width*comp)+(width-j-1)*comp+k];
-
-    export_JPEG_file ("flipped_image.jpg", new_chars, height, width, comp, 75);
-    */
 
     return 0;
 }
