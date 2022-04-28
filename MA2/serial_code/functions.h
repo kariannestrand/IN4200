@@ -3,18 +3,6 @@
 
 /* needed header files .... */
 #include <stdio.h>
-
-/*
-#include <stdlib.h>
-#include <math.h>
-#include <time.h>
-#include <stdbool.h>
-#include <mpi.h>
-#include <omp.h>
-#include <float.h>
-#include <string.h>
-*/
-
 #ifdef __MACH__     // indicates if we are on Macintosh operating system or not
 #include <stdlib.h>
 #else

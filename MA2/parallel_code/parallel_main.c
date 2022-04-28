@@ -1,6 +1,4 @@
-/* needed header files .... */
-/* declarations of functions import_JPEG_file and export_JPEG_file */
-
+#include "functions.h"
 
 int main(int argc, char *argv[]){
     int m, n, c, iters;
@@ -9,15 +7,27 @@ int main(int argc, char *argv[]){
     image u, u_bar, whole_image;
     unsigned char *image_chars, *my_image_chars;
     char *input_jpeg_filename, *output_jpeg_filename;
+
+
     MPI_Init (&argc, &argv);
     MPI_Comm_rank (MPI_COMM_WORLD, &my_rank);
     MPI_Comm_size (MPI_COMM_WORLD, &num_procs);
-    /* read from command line: kappa, iters, input_jpeg_filename, output_jpeg_file name */
-    /* ... */
+
+
+    /* command line arguments */
+    kappa = atof(argv[1]);             // scalar constant
+    iters = atoi(argv[2]);             // number of smoothing iterations
+    input_jpeg_filename = argv[3];     // filename of the noisy JPG image
+    output_jpeg_filename = argv[4];    // filename of the denoised JPG image
+    if (argc < 5) {
+        printf("Usage: ./prog kappa iters input_jpeg_filename output_jpeg_filename \n");
+        return 1;
+    }
+
 
     if (my_rank == 0){
        import_JPEG_file(input_jpeg_filename, &image_chars, &m, &n, &c);
-       allocate_image (&whole_image, m, n);
+       allocate_image(&whole_image, m, n);
     }
 
     MPI_Bcast (&m, 1, MPI_INT, 0, MPI_COMM_WORLD);
