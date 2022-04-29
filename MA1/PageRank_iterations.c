@@ -57,8 +57,14 @@ void PageRank_iterations(int N, int *row_ptr, int *col_idx, double *val, double 
     #pragma omp parallel
     {
     while (diff >= epsilon){
+
+        #pragma omp barrier
+        #pragma omp master
+        {
         diff = 0.;        // resets difference
         W = 0.;           // resets dangling factor
+        }
+
         l++;
 
         #pragma omp for reduction(+:W)
