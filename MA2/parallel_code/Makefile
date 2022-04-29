@@ -1,14 +1,14 @@
 CC = gcc
 CFLAGS = -O2
 LDFLAGS = -L../simple-jpeg/ -lsimplejpeg
-OBJS = serial_main.o functions.o
-PROJ = serial_main
+OBJS = parallel_main.o functions.o
+PROJ = parallel_main
 
 DEP = functions.h
 
 all: simple-jpeg $(PROJ)
 
-serial_main: $(OBJS) $(DEP)
+parallel_main: $(OBJS) $(DEP)
 	$(CC) $(CFLAGS) *.c -o $@ $(LDFLAGS)
 
 simple-jpeg:
