@@ -79,8 +79,10 @@ void read_graph_from_file(char *filename, int *N, int **row_ptr, int **col_idx, 
             temp[(*col_idx)[i]]++;             // counts number of non-zeros in each column
         }
     }
+    printf("val: \n");
     for (int i = 0; i < edges; i++){
         (*val)[i] = 1. / temp[(*col_idx)[i]];  // updates val
+        printf("%f \n", (*val)[i]);            // prints val
     }
 
 
