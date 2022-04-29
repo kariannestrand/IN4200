@@ -94,7 +94,7 @@ void convert_image_to_jpeg(const image *u, unsigned char* image_chars){
  *  kappa: scalar constant
  *  iters: number of smoothing iterations
  */
-void iso_diffusion_denoising(image *u, image *u_bar, float kappa, int iters){
+void iso_diffusion_denoising_parallel(image *u, image *u_bar, float kappa, int iters){
     int i, j, k;
     int m = u->m;
     int n = u->n;

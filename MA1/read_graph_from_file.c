@@ -61,6 +61,12 @@ void read_graph_from_file(char *filename, int *N, int **row_ptr, int **col_idx, 
         (*row_ptr)[i+1] = count;  // updates row_ptr
     }
 
+    printf("row_ptr: \n");
+    for (int i = 0; i < (*N + 1); i++){
+        printf("%d \n", (*row_ptr)[i]);        // prints row_ptr
+    }
+    printf("\n");
+
 
     /* creating col_idx */
     sort_relative(ToNodeId, FromNodeId, edges);
@@ -71,6 +77,11 @@ void read_graph_from_file(char *filename, int *N, int **row_ptr, int **col_idx, 
     }
     *col_idx = FromNodeId;  // updates col_idx
 
+    printf("col_idx: \n");
+    for (int i = 0; i < edges; i++){
+        printf("%d \n", (*col_idx)[i]);        // prints col_idx
+    }
+    printf("\n");
 
     /* creating val */
     int *temp = malloc(edges * sizeof *temp);  // declearing temporary array

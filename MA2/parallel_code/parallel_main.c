@@ -2,7 +2,7 @@
 
 int main(int argc, char *argv[]){
     int m, n, c, iters;
-    int my_m, my_n, my_rank, num_procs;
+    int my_start, my_stop, my_m, my_n, my_rank, num_procs;
     float kappa;
     image u, u_bar, whole_image;
     unsigned char *image_chars, *my_image_chars;
@@ -34,8 +34,10 @@ int main(int argc, char *argv[]){
     MPI_Bcast(&n, 1, MPI_INT, 0, MPI_COMM_WORLD);
 
     /* 2D decomposition of the m x n pixels evenly among the MPI processes */
-    my_m = ...; // ???????
-    my_n = ...; // ???????
+    my_start = (my_rank * m)/num_procs + 1;
+    my_stop = ((my_rank + 1) * m)/num_procs;
+    my_m = my_stop - my_start + 1;  // number of vertical pixels per process
+    my_n = n;                       // number of horizontal pixels per process
 
     allocate_image(&u, my_m, my_n);
     allocate_image(&u_bar, my_m, my_n);
@@ -43,6 +45,10 @@ int main(int argc, char *argv[]){
     /* each process asks process 0 for a partitioned region */
     /* of image_chars and copy the values into u */
     /*  ...  */
+
+    my_image_chars
+
+
     convert_jpeg_to_image(my_image_chars, &u);
     iso_diffusion_denoising_parallel(&u, &u_bar, kappa, iters);
 

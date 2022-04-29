@@ -1,6 +1,5 @@
 #include "main.h"
 
-
 /*
  *  function:  PageRank_iterations
  * --------------------
