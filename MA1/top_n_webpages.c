@@ -25,7 +25,6 @@ void top_n_webpages(int N, double *scores, int n){
         webpage[i] = i;    // filling webpage numbers in ascending order
     }
 
-    double start = omp_get_wtime();
     #pragma omp parallel private(i, idx)
     {
     for (i = 0; i < n; i++){
@@ -43,14 +42,15 @@ void top_n_webpages(int N, double *scores, int n){
                 swap(&webpage[i], &webpage[idx]);
             }
         }
-        printf("%d                    %f \n", webpage[i], scores[i]);
     }
     }
 
-    double end = omp_get_wtime();
-    double tot = end - start; // Total serial time.
-    printf("\n");
-    printf("Time no omp:  %lf\n", tot);
+
+    // printing number of top n webpages
+    for (i = 0; i < n; i++){
+        printf("%d                    %f \n", webpage[i], scores[i]);
+    }
+
 
     free(webpage);
 }
