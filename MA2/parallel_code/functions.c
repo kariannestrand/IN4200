@@ -94,7 +94,7 @@ void convert_image_to_jpeg(const image *u, unsigned char* image_chars){
  *  kappa: scalar constant
  *  iters: number of smoothing iterations
  */
-void iso_diffusion_denoising_parallel(image *u, image *u_bar, float kappa, int iters){
+void iso_diffusion_denoising(image *u, image *u_bar, float kappa, int iters){
     int i, j, k;
     int m = u->m;
     int n = u->n;
@@ -126,6 +126,22 @@ void iso_diffusion_denoising_parallel(image *u, image *u_bar, float kappa, int i
         swap(u, u_bar);    // after each iteration u and u_bar are swapped
     }
     swap(u_bar, u);        // the last iteration is swapped back
+}
+
+
+
+/*
+ *  function:  iso_diffusion_denoising_parallel
+ * --------------------
+ *  converts the 2D array of the image structure into the 1D array image_chars
+ *
+ *  u: image structure
+ *  u_bar: image structure
+ *  kappa: scalar constant
+ *  iters: number of smoothing iterations
+ */
+void iso_diffusion_denoising_parallel(image *u, image *u_bar, float kappa, int iters){
+
 }
 
 
