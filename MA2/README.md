@@ -29,6 +29,6 @@ To run the program in the folder `parallel_code`, write:
 
 where `num_procs` is the number of processors used in the MPI parallelization.
 
-To remove compiled files in both folders, write:
+To remove the compiled files in both folders, write:
 
     make clean
