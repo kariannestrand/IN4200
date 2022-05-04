@@ -87,7 +87,7 @@ void convert_image_to_jpeg(const image *u, unsigned char* image_chars){
 /*
  *  function:  iso_diffusion_denoising
  * --------------------
- *  converts the 2D array of the image structure into the 1D array image_chars
+ *  performs the denoising algorithm 
  *
  *  u: image structure
  *  u_bar: image structure

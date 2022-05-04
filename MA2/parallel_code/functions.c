@@ -85,16 +85,18 @@ void convert_image_to_jpeg(const image *u, unsigned char* image_chars){
 
 
 /*
- *  function:  iso_diffusion_denoising
+ *  function:  iso_diffusion_denoising_parallel
  * --------------------
- *  converts the 2D array of the image structure into the 1D array image_chars
+ *  performs the denoising algorithm, parallelized using MPI
  *
  *  u: image structure
  *  u_bar: image structure
  *  kappa: scalar constant
  *  iters: number of smoothing iterations
+ *  my_rank: integer specifying the rank of the process
+ *  num_procs: integer specifying the number of processors
  */
-void iso_diffusion_denoising(image *u, image *u_bar, float kappa, int iters){
+void iso_diffusion_denoising_parallel(image *u, image *u_bar, float kappa, int iters, int my_rank, int num_procs){
     int i, j, k;
     int m = u->m;
     int n = u->n;
@@ -110,9 +112,39 @@ void iso_diffusion_denoising(image *u, image *u_bar, float kappa, int iters){
         u_bar->image_data[m-1][j] = u->image_data[m-1][j];
     }
 
+    bool even_rank = my_rank % 2 == 0;
+    bool not_last_rank = my_rank != num_procs - 1;
+    bool not_first_rank = my_rank != 0;
 
-    // 2D smoothing function
+
     for (k = 0; k < iters; k++){
+        /* MPI send and recieve vertical boundaries between processes */
+        if (even_rank){
+            if (not_first_rank){
+                // send and recieve from above
+                MPI_Recv(u->image_data[0], n, MPI_FLOAT, my_rank - 1, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+                MPI_Send(u->image_data[1], n, MPI_FLOAT, my_rank - 1, 0, MPI_COMM_WORLD);
+            }
+            if (not_last_rank){
+                // send and recieve from below
+                MPI_Send(u->image_data[m-2], n, MPI_FLOAT, my_rank + 1, 0, MPI_COMM_WORLD);
+                MPI_Recv(u->image_data[m-1], n, MPI_FLOAT, my_rank + 1, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+            }
+        }
+        else{
+            // send and recieve from above
+            MPI_Recv(u->image_data[0], n, MPI_FLOAT, my_rank - 1, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+            MPI_Send(u->image_data[1], n, MPI_FLOAT, my_rank - 1, 0, MPI_COMM_WORLD);
+
+            if (not_last_rank){
+                // send and recieve from below
+                MPI_Send(u->image_data[m-2], n, MPI_FLOAT, my_rank + 1, 0, MPI_COMM_WORLD);
+                MPI_Recv(u->image_data[m-1], n, MPI_FLOAT, my_rank + 1, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+            }
+        }
+
+
+        // 2D smoothing function
         for (i = 1; i < m-1; i++){
             for (j = 1; j < n-1; j++){
                 u_bar->image_data[i][j] = u->image_data[i][j] + kappa
@@ -126,22 +158,6 @@ void iso_diffusion_denoising(image *u, image *u_bar, float kappa, int iters){
         swap(u, u_bar);    // after each iteration u and u_bar are swapped
     }
     swap(u_bar, u);        // the last iteration is swapped back
-}
-
-
-
-/*
- *  function:  iso_diffusion_denoising_parallel
- * --------------------
- *  converts the 2D array of the image structure into the 1D array image_chars
- *
- *  u: image structure
- *  u_bar: image structure
- *  kappa: scalar constant
- *  iters: number of smoothing iterations
- */
-void iso_diffusion_denoising_parallel(image *u, image *u_bar, float kappa, int iters){
-
 }
 
 

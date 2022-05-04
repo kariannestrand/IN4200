@@ -22,14 +22,19 @@ int main(int argc, char *argv[]){
     input_jpeg_filename = argv[3];     // filename of the noisy JPG image
     output_jpeg_filename = argv[4];    // filename of the denoised JPG image
     if (argc < 5) {
-        printf("Usage: ./prog kappa iters input_jpeg_filename output_jpeg_filename \n");
+        printf("Usage: mpirun -np num_procs ./prog kappa iters input_jpeg_filename output_jpeg_filename \n");
         return 1;
     }
 
 
     if (my_rank == 0){
        import_JPEG_file(input_jpeg_filename, &image_chars, &m, &n, &c);
-       allocate_image(&whole_image, m, n);
+       printf("\n");
+       printf("Succeeded! \n");
+       printf("number of vertical pixels: %d \n", m);
+       printf("number of horizontal pixels: %d \n", n);
+       printf("number of components: %d \n", c);
+       printf("\n");
     }
 
     MPI_Bcast(&m, 1, MPI_INT, 0, MPI_COMM_WORLD);
@@ -42,15 +47,11 @@ int main(int argc, char *argv[]){
     my_m = my_stop - my_start + 1;  // number of vertical pixels per process
     my_n = n;                       // number of horizontal pixels per process
 
-    allocate_image(&u, my_m, my_n);
-    allocate_image(&u_bar, my_m, my_n);
 
 
     /* creating partitioned region of image_chars for each process */
     int region_size = my_m * my_n;
     my_image_chars = malloc(region_size * sizeof *my_image_chars);
-    convert_jpeg_to_image(my_image_chars, &u);
-    iso_diffusion_denoising_parallel(&u, &u_bar, kappa, iters);
 
 
     /* array containing indices at which new regions start */
@@ -73,6 +74,13 @@ int main(int argc, char *argv[]){
                  MPI_COMM_WORLD);
 
 
+    allocate_image(&u, my_m, my_n);
+    allocate_image(&u_bar, my_m, my_n);
+    convert_jpeg_to_image(my_image_chars, &u);
+    iso_diffusion_denoising_parallel(&u, &u_bar, kappa, iters, my_rank, num_procs);
+    convert_image_to_jpeg(&u_bar, my_image_chars);
+
+
     /* sending resulting content of my_image_chars of each process to
        process 0, into the struct whole_image */
     MPI_Gatherv(my_image_chars, region_size, MPI_UNSIGNED_CHAR, image_chars,
@@ -80,11 +88,13 @@ int main(int argc, char *argv[]){
 
 
     if (my_rank == 0){
-       convert_image_to_jpeg(&whole_image, image_chars);
        export_JPEG_file(output_jpeg_filename, image_chars, m, n, c, 75);
-       deallocate_image(&whole_image);
+       free(image_chars);
+       free(displs);
+       free(sendcounts);
     }
 
+    free(my_image_chars);
     deallocate_image(&u);
     deallocate_image(&u_bar);
 

@@ -20,9 +20,13 @@ int main(int argc, char *argv[]){
         return 1;
     }
 
-
     import_JPEG_file(input_jpeg_filename, &image_chars, &m, &n, &c);
-    printf("Succeeded! m: %d, n: %d, c: %d \n", m, n, c);
+    printf("\n");
+    printf("Succeeded! \n");
+    printf("number of vertical pixels: %d \n", m);
+    printf("number of horizontal pixels: %d \n", n);
+    printf("number of components: %d \n", c);
+    printf("\n");
 
     allocate_image(&u, m, n);
     allocate_image(&u_bar, m, n);
