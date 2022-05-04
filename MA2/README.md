@@ -1,6 +1,6 @@
 # README for IN4200 - Mandatory Assignment 2
 
-### This program uses the C programming language to import a noisy grey-scale JPEG image using a simple-jpeg external library. The JPEG image then undergoes simple denoising using the isotropic diffusion algorithm, and a smooth version of the JPEG image is exported. The folders `serial_code` and `parallel_code` contains a non-parallelized and MPI parallelized version of this program, respectively. The folder `simple-jpeg` contains the source code of the simple-jpeg external library.
+### This program uses the C programming language to import a noisy grey-scale JPEG image using the simple-jpeg external library. The JPEG image then undergoes simple denoising using the isotropic diffusion algorithm, and a smooth version of the JPEG image is exported. The folders `serial_code` and `parallel_code` contains a non-parallelized and MPI parallelized version of this program, respectively. The folder `simple-jpeg` contains the source code of the simple-jpeg external library.
 
 The program in both folders `serial_code` and `parallel_code` is structured into four files:
   - `serial_main.c`/`parallel_main.c`
