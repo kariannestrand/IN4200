@@ -17,10 +17,18 @@ To compile the code in both folders `serial_code` and `parallel_code`, write the
 
       make
 
-To run the folder `serial_code`, write:
+To run the program in the folder `serial_code`, write:
 
       ./serial_code kappa iters input_jpeg_filename output_jpeg_filename
 
-where `kappa` is a small scalar constant (such as 0.2 or below).the name of the file with the web graph, `d` is the damping
-constant, `epsilon` is the convergence threshold value and `n` is the number of
-top webpages being printed.
+where `kappa` is a small scalar constant (such as 0.2 or below), `iters` is the number of iterations the denoising algorithm is performed, `input_jpeg_filename` is the name of the imported image and `output_jpeg_filename` is the name of the exported image.
+
+To run the program in the folder `parallel_code`, write:
+
+    mpirun -np num_procs ./parallel_code kappa iters input_jpeg_filename output_jpeg_filename
+
+where `num_procs` is the number of processors used in the MPI parallelization.
+
+To clean the program in both folders, write:
+
+    make clean
